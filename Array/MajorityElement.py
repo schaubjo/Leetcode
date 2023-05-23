@@ -1,10 +1,10 @@
 def MajorityElement(nums):
-    count = {}
-    result = 0
-    maxCount = 0
-    for i in nums:
-        count[i] = 1 + count.get(i, 0)
-        result = i if count[i] > maxCount else result
-        maxCount = max(maxCount, count[i])
-
-    return result
+    res, count = 0, 0
+    for n in nums:
+        if count == 0:
+            res = n
+        if n == res:
+            count += 1
+        else:
+            count -= 1
+    return res
