@@ -1,25 +1,19 @@
 def rotate(nums, k):
 
+    def reversal(l, r):
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l, r = l + 1, r - 1
+
     k %= len(nums)
     # reverse entire array
-    l, r = 0, len(nums) - 1
-    while l < r:
-        nums[l], nums[r] = nums[r], nums[l]
-        l += 1
-        r -= 1
+    reversal(0, len(nums) - 1)
+
     # reverse first k elements
-    l, r = 0, k - 1
-    while l < r:
-        nums[l], nums[r] = nums[r], nums[l]
-        l += 1
-        r -= 1
+    reversal(0, k - 1)
 
     # reverse last k elements
-    l, r = k, len(nums) - 1
-    while l < r:
-        nums[l], nums[r] = nums[r], nums[l]
-        l += 1
-        r -= 1
+    reversal(k, len(nums) - 1)
 
     print(nums)
 
