@@ -7,23 +7,21 @@ class ListNode:
 
 
 def mergeTwo(l1, l2):
-    res = ListNode()
-    head = res
-    while l1 or l2:
-        if not l1:
-            res.next = l2
-            l2 = l2.next
-        elif not l2:
-            res.next = l1
-            l1 = l1.next
-        elif l1.val < l2.val:
-            res.next = l1
+    dummy = ListNode()
+    tail = dummy
+    while l1 and l2:
+        if l1.val < l2.val:
+            tail.next = l1
             l1 = l1.next
         else:
-            res.next = l2
+            tail.next = l2
             l2 = l2.next
-        res = res.next
-    return head.next
+        tail = tail.next
+    if l1:
+        tail.next = l1
+    elif l2:
+        tail.next = l2
+    return dummy.next
 
 
 def mergeKLists(lists):
