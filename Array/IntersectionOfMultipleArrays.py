@@ -3,6 +3,7 @@ from collections import Counter
 
 def intersection(nums):
     dict1 = Counter(nums[0])
+    
     for i in range(1, len(nums)):
         for n in nums[i]:
             if n in dict1:
