@@ -2,6 +2,11 @@ from collections import defaultdict
 
 
 def numMatchingSubseq(s, words):
+    # create dict for s with val being a list of indices
+    lookup = defaultdict(list)
+
+    for i, c in enumerate(s):
+        lookup[c].append(i)
 
     def binary_search(index_list, i):
         l, r = 0, len(index_list)
@@ -14,13 +19,6 @@ def numMatchingSubseq(s, words):
 
         return l
 
-    # create dict for s with val being a list of indices
-    lookup = defaultdict(list)
-
-    for i, c in enumerate(s):
-        lookup[c].append(i)
-
-    count = 0
     for word in words:
         prev = -1
         found = True
@@ -31,11 +29,8 @@ def numMatchingSubseq(s, words):
                 break
             else:
                 prev = lookup[c][tmp]
-
+        
         if found:
-            count += 1
-
-    return count
 
 
 print(numMatchingSubseq("abcde", ["a", "bb", "acd", "ace"]))
