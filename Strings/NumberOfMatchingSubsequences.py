@@ -1,7 +1,13 @@
 from collections import defaultdict
+import bisect
 
 
 def numMatchingSubseq(s, words):
+    # create dict for s with val being a list of indices
+    lookup = defaultdict(list)
+
+    for i, c in enumerate(s):
+        lookup[c].append(i)
 
     def binary_search(index_list, i):
         l, r = 0, len(index_list)
@@ -13,12 +19,6 @@ def numMatchingSubseq(s, words):
                 l = mid + 1
 
         return l
-
-    # create dict for s with val being a list of indices
-    lookup = defaultdict(list)
-
-    for i, c in enumerate(s):
-        lookup[c].append(i)
 
     count = 0
     for word in words:
