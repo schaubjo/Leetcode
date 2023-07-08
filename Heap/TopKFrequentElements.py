@@ -5,13 +5,18 @@ import heapq
 def topKFrequent(nums, k):
     counted = Counter(nums)
 
-    priority_queue = []
+    bucket = [[] for _ in range(len(nums))]
+
     for key, val in counted.items():
-        heapq.heappush(priority_queue, (-1 * val, key))
+        bucket[val - 1].append(key)
 
     res = []
-    for i in range(k):
-        res.append(heapq.heappop(priority_queue)[1])
+    for i in range(len(bucket) - 1, -1, -1):
+        for j in range(len(bucket[i])):
+            res.append(bucket[i][j])
+            k -= 1
+            if k == 0:
+                return res
 
     return res
 
