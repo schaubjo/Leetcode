@@ -12,6 +12,7 @@ class RandomizedSet:
             return False
         self.numSet.add(val)
         self.numList.append(val)
+        return True
 
     def remove(self, val: int) -> bool:
         if val not in self.numSet:
