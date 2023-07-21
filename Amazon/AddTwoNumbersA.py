@@ -9,7 +9,7 @@ def addTwoNumbers(l1, l2):
     dummy = ListNode()
     res = dummy
     carry = 0
-    while l1 or l2 or carry > 1:
+    while l1 or l2 or carry > 0:
         val1 = l1.val if l1 else 0
         val2 = l2.val if l2 else 0
 
