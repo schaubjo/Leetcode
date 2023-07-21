@@ -1,4 +1,4 @@
-def twoSum(self, nums: List[int], target: int) -> List[int]:
+def twoSum(nums, target):
     numsDict = {}  # val -> index
     for i in range(len(nums)):
         if target - nums[i] in numsDict:
