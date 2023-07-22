@@ -1,5 +1,4 @@
 def partitionString(s):
-    i = 0
     charSet = set()
     numPartitions = 1
     for i in range(len(s)):
