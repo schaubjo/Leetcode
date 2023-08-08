@@ -14,4 +14,4 @@ def isValidBST(root):
         
         return valid(root.left, left_bound, root.val) and valid(root.right, root.val, right_bound)
     
-    return valid(root, -float('inf'), float('inf'))
+    return valid(root, float('-inf'), float('inf'))
