@@ -1,4 +1,4 @@
-from collections import defaultdict
+import collections
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -8,19 +8,30 @@ class TreeNode:
         self.right = right
 
 def levelOrder(root):
-    level_to_val = defaultdict(list) # level -> value
-    def dfs(root, level):
-        if not root:
-            return
-        level_to_val[level].append(root.val)
-        if root.left:
-            dfs(root.left, level + 1)
-        if root.right:
-            dfs(root.right, level + 1)
+    q = collections.deque()
 
-    dfs(root, 0)
-    res = [k for k in level_to_val.values()]
+    q.append(root)
+    res = []
+    while q:
+        level = []
+        for i in range(len(q)):
+            new_element = q.popleft()
+            if new_element:
+                level.append(new_element.val)
+                q.append(new_element.left)
+                q.append(new_element.right)
+        if len(level) > 0:
+            res.append(level)
+    
     return res
+
+    
+        
+
+            
+            
+
+
 
 
 seven = TreeNode(7)
@@ -28,7 +39,7 @@ fifteen = TreeNode(15)
 twenty = TreeNode(20, fifteen, seven)
 nine = TreeNode(9)
 three = TreeNode(3, nine, twenty)
-levelOrder(three)
+print(levelOrder(three))
 
 
 
