@@ -1,52 +1,53 @@
 def platesBetweenCandles(s, queries):
-    candleDict = {}  # candle index -> number of plates before candle
+    platesBeforeCandle = []
     plateCount = 0
 
-    # initialize candleDict
+    # initialize platesBeforeCandle
     for i in range(len(s)):
         if s[i] == '*':
             plateCount += 1
+            platesBeforeCandle.append(-1)
         else:
-            candleDict[i] = plateCount
+            platesBeforeCandle.append(plateCount)
 
-    # find leftmost candle in query
-    def findLeftmostCandle(l, r):
-        while l <= r:
-            if l in candleDict:
-                return l
-            l += 1
+    # create list of the leftmost candle to index
+    leftmostCandle = [-1 for _ in s]
+    leftmost = -1
+    for i in range(1, len(s)):
+        if s[i] == '|':
+            leftmost = i
+        leftmostCandle[i] = leftmost
 
-        # return -1 if no candles found in range
-        return -1
-
-    # find rightmost candle in query
-    def findRightmostCandle(l, r):
-        while r >= l:
-            if r in candleDict:
-                return r
-            r -= 1
-
-        # return -1 if no candles found in range
-        return -1
+    # create list of the rightmost candle to index
+    rightmostCandle = [-1 for _ in s]
+    rightmost = -1
+    for i in range(len(s) - 1, -1, -1):
+        if s[i] == '|':
+            rightmost = i
+        rightmostCandle[i] = rightmost
 
     res = []
     for query in queries:
-        # get index of leftmost candle in query
-        lCandle = findLeftmostCandle(query[0], query[1])
-
-        if lCandle == -1:
+        # find rightmost candle of left bound
+        rightmost = rightmostCandle[query[0]]
+        if rightmost == -1:
             res.append(0)
             continue
 
-        # get index of rightmost candle in query
-        rCandle = findRightmostCandle(lCandle + 1, query[1])
-
-        if rCandle == -1:
+        # find leftmost candle of right bound
+        leftmost = leftmostCandle[query[1]]
+        if leftmost == -1:
             res.append(0)
             continue
 
-        platesBetween = candleDict[rCandle] - candleDict[lCandle]
-        res.append(platesBetween)
+        # find candles between rightmost and leftmost
+        difference = platesBeforeCandle[leftmost] - \
+            platesBeforeCandle[rightmost]
+
+        if difference <= 0:
+            res.append(0)
+        else:
+            res.append(difference)
 
     return res
 
@@ -54,3 +55,4 @@ def platesBetweenCandles(s, queries):
 print(platesBetweenCandles(s="**|**|***|", queries=[[2, 5], [5, 9]]))
 print(platesBetweenCandles(s="***|**|*****|**||**|*",
       queries=[[1, 17], [4, 5], [14, 17], [5, 11], [15, 16]]))
+print(platesBetweenCandles("||*", [[2, 2]]))
