@@ -4,6 +4,7 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+        
 def isSameTree(p, q):
     if (not p and q) or (p and not q) or ((p and q) and (p.val != q.val)):
         return False
